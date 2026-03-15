@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLiteMode } from "../context/LiteModeContext";
 
 const NAV_LINKS = [
   { name: "Home", href: "#home" },
@@ -31,6 +32,7 @@ function Navigation({ onClick }) {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { liteMode, setLiteMode } = useLiteMode();
 
   return (
     <div className="fixed inset-x-0 top-0 z-50 w-full border-b border-white/10 backdrop-blur-md bg-black/50">
@@ -49,18 +51,31 @@ const Navbar = () => {
             <Navigation />
           </nav>
 
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex p-2 transition-colors rounded-md text-neutral-400 hover:text-white focus:outline-none sm:hidden"
-            aria-label="Toggle Menu"
-          >
-            <img
-              src={isOpen ? "assets/close.svg" : "assets/menu.svg"}
-              className="w-6 h-6"
-              alt="toggle"
-            />
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setLiteMode(!liteMode)}
+              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-sm text-neutral-300 hover:text-white hover:border-white/30 transition-colors"
+              aria-pressed={liteMode}
+            >
+              Lite Mode
+              <span className="text-xs text-neutral-400">
+                {liteMode ? "On" : "Off"}
+              </span>
+            </button>
+
+            {/* Mobile Toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex p-2 transition-colors rounded-md text-neutral-400 hover:text-white focus:outline-none sm:hidden"
+              aria-label="Toggle Menu"
+            >
+              <img
+                src={isOpen ? "assets/close.svg" : "assets/menu.svg"}
+                className="w-6 h-6"
+                alt="toggle"
+              />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -76,6 +91,13 @@ const Navbar = () => {
           >
             <nav className="p-8">
               <Navigation onClick={() => setIsOpen(false)} />
+              <button
+                onClick={() => setLiteMode(!liteMode)}
+                className="mt-6 w-full rounded-full border border-white/10 px-4 py-2 text-sm text-neutral-300 hover:text-white hover:border-white/30 transition-colors"
+                aria-pressed={liteMode}
+              >
+                Lite Mode: {liteMode ? "On" : "Off"}
+              </button>
             </nav>
           </motion.div>
         )}

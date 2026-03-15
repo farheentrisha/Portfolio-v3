@@ -1,15 +1,17 @@
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
+import { useLiteMode } from "../context/LiteModeContext";
 
 const ParallaxBackground = ({ enabled = true }) => {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const { liteMode } = useLiteMode();
   const { scrollYProgress } = useScroll();
   const x = useSpring(scrollYProgress, { damping: 50 });
   const mountain3Y = useTransform(x, [0, 0.5], ["0%", "70%"]);
   const planetsX = useTransform(x, [0, 0.5], ["0%", "-20%"]);
   const mountain2Y = useTransform(x, [0, 0.5], ["0%", "30%"]);
   const mountain1Y = useTransform(x, [0, 0.5], ["0%", "0%"]);
-  const isEnabled = enabled && !prefersReducedMotion;
+  const isEnabled = enabled && !prefersReducedMotion && !liteMode;
   const Layer = isEnabled ? motion.div : "div";
 
   return (

@@ -4,11 +4,13 @@ import Alert from "../components/Alert";
 import { Particles } from "../components/Particles";
 import useInView from "../hooks/useInView";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
+import { useLiteMode } from "../context/LiteModeContext";
 const Contact = () => {
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, { rootMargin: "200px" });
   const prefersReducedMotion = usePrefersReducedMotion();
-  const particleQuantity = prefersReducedMotion ? 30 : 60;
+  const { liteMode } = useLiteMode();
+  const particleQuantity = prefersReducedMotion || liteMode ? 30 : 60;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -68,7 +70,7 @@ const Contact = () => {
           ease={80}
           color={"#ffffff"}
           refresh
-          animate={!prefersReducedMotion}
+          animate={!prefersReducedMotion && !liteMode}
           maxDpr={1.25}
         />
       )}

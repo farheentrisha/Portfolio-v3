@@ -5,12 +5,14 @@ import CopyEmailButton from "../components/CopyEmailButton";
 import { Frameworks } from "../components/FrameWorks";
 import useInView from "../hooks/useInView";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
+import { useLiteMode } from "../context/LiteModeContext";
 
 const About = () => {
   const grid2Container = useRef();
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, { rootMargin: "200px" });
   const prefersReducedMotion = usePrefersReducedMotion();
+  const { liteMode } = useLiteMode();
   return (
     <section ref={sectionRef} className="c-space section-spacing" id="about">
       <h2 className="text-heading">About Me</h2>
@@ -93,7 +95,7 @@ const About = () => {
             </p>
           </div>
           <figure className="absolute left-[30%] top-[10%]">
-            {inView && !prefersReducedMotion && <Globe />}
+            {inView && !prefersReducedMotion && !liteMode && <Globe />}
           </figure>
         </div>
         {/* Grid 4 */}

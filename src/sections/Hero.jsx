@@ -9,6 +9,7 @@ import { Suspense, useState, useEffect, useRef } from "react";
 import Loader from "../components/Loader";
 import useInView from "../hooks/useInView";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
+import { useLiteMode } from "../context/LiteModeContext";
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
@@ -16,7 +17,8 @@ const Hero = () => {
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, { rootMargin: "200px" });
   const prefersReducedMotion = usePrefersReducedMotion();
-  const enableEffects = inView && !prefersReducedMotion;
+  const { liteMode } = useLiteMode();
+  const enableEffects = inView && !prefersReducedMotion && !liteMode;
   const allow3D = enableEffects && !isMobile;
 
   // Defer canvas rendering slightly to prioritize text content

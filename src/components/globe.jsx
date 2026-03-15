@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 
 import { twMerge } from "tailwind-merge";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
+import { useLiteMode } from "../context/LiteModeContext";
 
 const MOVEMENT_DAMPING = 1400;
 
@@ -39,6 +40,7 @@ const GLOBE_CONFIG = {
 
 export function Globe({ className, config = GLOBE_CONFIG }) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const { liteMode } = useLiteMode();
   let phi = 0;
   let width = 0;
   const canvasRef = useRef(null);
@@ -82,8 +84,15 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
       width: width * 2,
       height: width * 2,
       onRender: (state) => {
-        if (!pointerInteracting.current && !prefersReducedMotion) phi += 0.005;
-        state.phi = prefersReducedMotion ? config.phi : phi + rs.get();
+        if (
+          !pointerInteracting.current &&
+          !prefersReducedMotion &&
+          !liteMode
+        ) {
+          phi += 0.005;
+        }
+        state.phi =
+          prefersReducedMotion || liteMode ? config.phi : phi + rs.get();
         state.width = width * 2;
         state.height = width * 2;
       },

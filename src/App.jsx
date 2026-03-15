@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import Navbar from "./sections/navbar";
 import Hero from "./sections/Hero";
 import { SkeletonLoader } from "./components/SkeletonLoader";
+import { LiteModeProvider } from "./context/LiteModeContext";
 
 // Lazy load sections that are not immediately visible
 const About = lazy(() => import("./sections/About"));
@@ -19,28 +20,30 @@ const SectionFallback = () => (
 
 const App = () => {
   return (
-    <div className="container mx-auto max-w-7xl">
-      <Navbar />
-      <Hero />
-      <Suspense fallback={<SectionFallback />}>
-        <About />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Projects />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Experiences />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Testimonial />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Contact />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Footer />
-      </Suspense>
-    </div>
+    <LiteModeProvider>
+      <div className="container mx-auto max-w-7xl">
+        <Navbar />
+        <Hero />
+        <Suspense fallback={<SectionFallback />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Experiences />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Testimonial />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Contact />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Footer />
+        </Suspense>
+      </div>
+    </LiteModeProvider>
   );
 };
 
