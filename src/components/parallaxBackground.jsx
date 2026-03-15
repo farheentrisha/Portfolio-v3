@@ -1,12 +1,16 @@
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 
-const ParallaxBackground = () => {
+const ParallaxBackground = ({ enabled = true }) => {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll();
   const x = useSpring(scrollYProgress, { damping: 50 });
   const mountain3Y = useTransform(x, [0, 0.5], ["0%", "70%"]);
   const planetsX = useTransform(x, [0, 0.5], ["0%", "-20%"]);
   const mountain2Y = useTransform(x, [0, 0.5], ["0%", "30%"]);
   const mountain1Y = useTransform(x, [0, 0.5], ["0%", "0%"]);
+  const isEnabled = enabled && !prefersReducedMotion;
+  const Layer = isEnabled ? motion.div : "div";
 
   return (
     <section className="absolute inset-0 bg-black/40">
@@ -21,43 +25,43 @@ const ParallaxBackground = () => {
           }}
         />
         {/* Mountain Layer 3 */}
-        <motion.div
+        <Layer
           className="absolute inset-0 -z-40"
           style={{
             backgroundImage: "url(/assets/mountain-3.png)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
-            y: mountain3Y,
+            ...(isEnabled ? { y: mountain3Y } : {}),
           }}
         />
         {/* Planets */}
-        <motion.div
+        <Layer
           className="absolute inset-0 -z-30"
           style={{
             backgroundImage: "url(/assets/planets.png)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
-            x: planetsX,
+            ...(isEnabled ? { x: planetsX } : {}),
           }}
         />
         {/* Mountain Layer 2 */}
-        <motion.div
+        <Layer
           className="absolute inset-0 -z-20"
           style={{
             backgroundImage: "url(/assets/mountain-2.png)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
-            y: mountain2Y,
+            ...(isEnabled ? { y: mountain2Y } : {}),
           }}
         />
         {/* Mountaine Layer 1 */}
-        <motion.div
+        <Layer
           className="absolute inset-0 -z-10"
           style={{
             backgroundImage: "url(/assets/mountain-1.png)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
-            y: mountain1Y,
+            ...(isEnabled ? { y: mountain1Y } : {}),
           }}
         />
       </div>

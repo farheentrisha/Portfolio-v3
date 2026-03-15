@@ -1,26 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import React, { useEffect, useRef, useState } from "react";
-
-function MousePosition() {
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0,
-  });
-
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      setMousePosition({ x: event.clientX, y: event.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  return mousePosition;
-}
+import React, { useEffect, useRef } from "react";
 
 function hexToRgb(hex) {
   hex = hex.replace("#", "");
@@ -41,7 +20,7 @@ function hexToRgb(hex) {
 
 export const Particles = ({
   className = "",
-  quantity = 100,
+  quantity = 60,
   staticity = 50,
   ease = 50,
   size = 0.4,
@@ -49,25 +28,32 @@ export const Particles = ({
   color = "#ffffff",
   vx = 0,
   vy = 0,
+  maxDpr = 1.5,
+  animate = true,
+  pauseWhenHidden = true,
   ...props
 }) => {
   const canvasRef = useRef(null);
   const canvasContainerRef = useRef(null);
   const context = useRef(null);
   const circles = useRef([]);
-  const mousePosition = MousePosition();
   const mouse = useRef({ x: 0, y: 0 });
   const canvasSize = useRef({ w: 0, h: 0 });
-  const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+  const dprRef = useRef(1);
   const rafID = useRef(null);
   const resizeTimeout = useRef(null);
+  const isAnimating = useRef(false);
 
   useEffect(() => {
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext("2d");
     }
     initCanvas();
-    animate();
+    if (animate) {
+      startAnimation();
+    } else {
+      drawParticles();
+    }
 
     const handleResize = () => {
       if (resizeTimeout.current) {
@@ -81,53 +67,75 @@ export const Particles = ({
     window.addEventListener("resize", handleResize);
 
     return () => {
-      if (rafID.current != null) {
-        window.cancelAnimationFrame(rafID.current);
-      }
+      stopAnimation();
       if (resizeTimeout.current) {
         clearTimeout(resizeTimeout.current);
       }
       window.removeEventListener("resize", handleResize);
     };
-  }, [color]);
+  }, [animate, color, quantity, size, maxDpr]);
 
   useEffect(() => {
-    onMouseMove();
-  }, [mousePosition.x, mousePosition.y]);
+    const handlePointerMove = (event) => {
+      if (!canvasRef.current) return;
+      const rect = canvasRef.current.getBoundingClientRect();
+      const { w, h } = canvasSize.current;
+      const x = event.clientX - rect.left - w / 2;
+      const y = event.clientY - rect.top - h / 2;
+      const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
+      if (inside) {
+        mouse.current.x = x;
+        mouse.current.y = y;
+      }
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, []);
 
   useEffect(() => {
     initCanvas();
   }, [refresh]);
+  useEffect(() => {
+    if (!pauseWhenHidden) return;
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        if (animate) startAnimation();
+      } else {
+        stopAnimation();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [animate, pauseWhenHidden]);
 
   const initCanvas = () => {
     resizeCanvas();
     drawParticles();
   };
 
-  const onMouseMove = () => {
-    if (canvasRef.current) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      const { w, h } = canvasSize.current;
-      const x = mousePosition.x - rect.left - w / 2;
-      const y = mousePosition.y - rect.top - h / 2;
-      const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
-      if (inside) {
-        mouse.current.x = x;
-        mouse.current.y = y;
-      }
-    }
-  };
-
   const resizeCanvas = () => {
     if (canvasContainerRef.current && canvasRef.current && context.current) {
+      const deviceDpr =
+        typeof window !== "undefined"
+          ? Math.min(window.devicePixelRatio || 1, maxDpr)
+          : 1;
+      dprRef.current = deviceDpr;
       canvasSize.current.w = canvasContainerRef.current.offsetWidth;
       canvasSize.current.h = canvasContainerRef.current.offsetHeight;
 
-      canvasRef.current.width = canvasSize.current.w * dpr;
-      canvasRef.current.height = canvasSize.current.h * dpr;
+      canvasRef.current.width = canvasSize.current.w * deviceDpr;
+      canvasRef.current.height = canvasSize.current.h * deviceDpr;
       canvasRef.current.style.width = `${canvasSize.current.w}px`;
       canvasRef.current.style.height = `${canvasSize.current.h}px`;
-      context.current.scale(dpr, dpr);
+      context.current.setTransform(1, 0, 0, 1, 0, 0);
+      context.current.scale(deviceDpr, deviceDpr);
 
       // Clear existing particles and create new ones with exact quantity
       circles.current = [];
@@ -173,7 +181,7 @@ export const Particles = ({
       context.current.arc(x, y, size, 0, 2 * Math.PI);
       context.current.fillStyle = `rgba(${rgb.join(", ")}, ${alpha})`;
       context.current.fill();
-      context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.current.setTransform(dprRef.current, 0, 0, dprRef.current, 0, 0);
 
       if (!update) {
         circles.current.push(circle);
@@ -207,7 +215,8 @@ export const Particles = ({
     return remapped > 0 ? remapped : 0;
   };
 
-  const animate = () => {
+  const animateLoop = () => {
+    if (!isAnimating.current) return;
     clearContext();
     circles.current.forEach((circle, i) => {
       // Handle the alpha value
@@ -254,7 +263,21 @@ export const Particles = ({
         drawCircle(newCircle);
       }
     });
-    rafID.current = window.requestAnimationFrame(animate);
+    rafID.current = window.requestAnimationFrame(animateLoop);
+  };
+
+  const startAnimation = () => {
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    rafID.current = window.requestAnimationFrame(animateLoop);
+  };
+
+  const stopAnimation = () => {
+    isAnimating.current = false;
+    if (rafID.current != null) {
+      window.cancelAnimationFrame(rafID.current);
+      rafID.current = null;
+    }
   };
 
   return (

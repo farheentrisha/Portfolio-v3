@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Alert from "../components/Alert";
 import { Particles } from "../components/Particles";
+import useInView from "../hooks/useInView";
+import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 const Contact = () => {
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { rootMargin: "200px" });
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const particleQuantity = prefersReducedMotion ? 30 : 60;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -51,14 +57,21 @@ const Contact = () => {
     }
   };
   return (
-    <section className="relative flex items-center c-space section-spacing">
-      <Particles
-        className="absolute inset-0 -z-50"
-        quantity={100}
-        ease={80}
-        color={"#ffffff"}
-        refresh
-      />
+    <section
+      ref={sectionRef}
+      className="relative flex items-center c-space section-spacing"
+    >
+      {inView && (
+        <Particles
+          className="absolute inset-0 -z-50"
+          quantity={particleQuantity}
+          ease={80}
+          color={"#ffffff"}
+          refresh
+          animate={!prefersReducedMotion}
+          maxDpr={1.25}
+        />
+      )}
       {showAlert && <Alert type={alertType} text={alertMessage} />}
       <div className="flex flex-col items-center justify-center max-w-md p-5 mx-auto border border-white/10 rounded-2xl bg-primary">
         <div className="flex flex-col items-start w-full gap-5 mb-10">

@@ -5,6 +5,7 @@ import { useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
 
 import { twMerge } from "tailwind-merge";
+import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 
 const MOVEMENT_DAMPING = 1400;
 
@@ -12,12 +13,12 @@ const GLOBE_CONFIG = {
   width: 800,
   height: 800,
   onRender: () => {},
-  devicePixelRatio: 2,
+  devicePixelRatio: 1.5,
   phi: 0,
   theta: 0.3,
   dark: 1,
   diffuse: 0.4,
-  mapSamples: 16000,
+  mapSamples: 8000,
   mapBrightness: 1.2,
   baseColor: [1, 1, 1],
   markerColor: [1, 1, 1],
@@ -37,6 +38,7 @@ const GLOBE_CONFIG = {
 };
 
 export function Globe({ className, config = GLOBE_CONFIG }) {
+  const prefersReducedMotion = usePrefersReducedMotion();
   let phi = 0;
   let width = 0;
   const canvasRef = useRef(null);
@@ -80,11 +82,15 @@ export function Globe({ className, config = GLOBE_CONFIG }) {
       width: width * 2,
       height: width * 2,
       onRender: (state) => {
-        if (!pointerInteracting.current) phi += 0.005;
-        state.phi = phi + rs.get();
+        if (!pointerInteracting.current && !prefersReducedMotion) phi += 0.005;
+        state.phi = prefersReducedMotion ? config.phi : phi + rs.get();
         state.width = width * 2;
         state.height = width * 2;
       },
+      devicePixelRatio:
+        typeof window !== "undefined"
+          ? Math.min(window.devicePixelRatio || 1, config.devicePixelRatio || 1)
+          : 1,
     });
 
     setTimeout(() => (canvasRef.current.style.opacity = "1"), 0);

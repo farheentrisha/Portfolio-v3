@@ -3,11 +3,16 @@ import Card from "../components/Card";
 import { Globe } from "../components/globe";
 import CopyEmailButton from "../components/CopyEmailButton";
 import { Frameworks } from "../components/FrameWorks";
+import useInView from "../hooks/useInView";
+import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 
 const About = () => {
   const grid2Container = useRef();
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { rootMargin: "200px" });
+  const prefersReducedMotion = usePrefersReducedMotion();
   return (
-    <section className="c-space section-spacing" id="about">
+    <section ref={sectionRef} className="c-space section-spacing" id="about">
       <h2 className="text-heading">About Me</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[18rem] mt-12">
         {/* Grid 1 */}
@@ -15,11 +20,14 @@ const About = () => {
           <img
             src="assets/coding-pov.png"
             className="absolute scale-[1.75] -right-[5rem] -top-[1rem] md:scale-[3] md:left-50 md:inset-y-10 lg:scale-[2.5]"
+            loading="lazy"
+            decoding="async"
+            alt=""
           />
           <div className="z-10">
-            <p className="headtext">Hi, I'm Ali Sanati</p>
+            <p className="headtext">Hi, I'm Farheen Mahjarin Trisha</p>
             <p className="subtext">
-              Over the last 4 years, I developed my frontend and backend dev
+              Over the last 2 years, I developed my frontend and backend dev
               skills to deliver dynamic and software and web applications.
             </p>
           </div>
@@ -85,7 +93,7 @@ const About = () => {
             </p>
           </div>
           <figure className="absolute left-[30%] top-[10%]">
-            <Globe />
+            {inView && !prefersReducedMotion && <Globe />}
           </figure>
         </div>
         {/* Grid 4 */}
