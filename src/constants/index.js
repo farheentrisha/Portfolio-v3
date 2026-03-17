@@ -192,12 +192,11 @@ export const education = [
 
 export const publications = [
   {
-    title:
-      "IoT Integrated Smart Aquarium Management System with Real-Time Water Quality Monitoring",
-    authors:
-      "Farheen Mahjarin Trisha, Maria Sultana, Ahmad Abdullah, Mohammad Alam, M. Akhtaruzzaman",
+    title: "IoT Integrated Smart Aquarium Management System with Real-Time Water Quality Monitoring",
+    authors: "Farheen Mahjarin Trisha, Maria Sultana, Ahmad Abdullah, Mohammad Alam, M. Akhtaruzzaman",
     venue: "IEEE QPAIN 2025 Conference, pp. 1-5",
     doi: "10.1109/QPAIN66474.2025.11171621",
+    href: "https://ieeexplore.ieee.org/document/11171621/",
   },
 ];
 
@@ -235,16 +234,7 @@ export const skills = [
   },
 ];
 
-export const certificates = [
-  {
-    category: "Web",
-    items: ["HTML", "CSS", "React", "Node.js", "Flask", "MongoDB"],
-  },
-  {
-    category: "Tools",
-    items: ["Blender"],
-  },
-];
+
 
 export const certifications = [
   {

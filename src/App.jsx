@@ -11,7 +11,6 @@ const Experiences = lazy(() => import("./sections/Experiences"));
 const Education = lazy(() => import("./sections/Education"));
 const Skills = lazy(() => import("./sections/Skills"));
 const Achievements = lazy(() => import("./sections/Achievements"));
-const Certificates = lazy(() => import("./sections/Certificates"));
 const Publications = lazy(() => import("./sections/Publications"));
 const Testimonial = lazy(() => import("./sections/Testimonial"));
 const Contact = lazy(() => import("./sections/Contact"));
@@ -41,15 +40,11 @@ const App = () => {
         <Suspense fallback={<SectionFallback />}>
           <Education />
         </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <Skills />
-        </Suspense>
+        
         <Suspense fallback={<SectionFallback />}>
           <Achievements />
         </Suspense>
-        <Suspense fallback={<SectionFallback />}>
-          <Certificates />
-        </Suspense>
+        
         <Suspense fallback={<SectionFallback />}>
           <Publications />
         </Suspense>
