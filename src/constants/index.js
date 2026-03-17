@@ -236,7 +236,7 @@ export const skills = [
 
 
 
-export const certifications = [
+export const certificates = [
   {
     name: "IoT Integrated Smart Aquarium",
     username: "IEEE QPAIN 2025",
@@ -281,3 +281,6 @@ export const certifications = [
   },
   
 ];
+
+// Backward-compatible alias for any existing imports
+export const certifications = certificates;

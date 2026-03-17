@@ -112,8 +112,7 @@ const About = () => {
           <div className="z-10 w-[50%]">
             <p className="headText">Tech Stack</p>
             <p className="subtext">
-              I specialize in a variety of languages, frameworks, and tools that
-              allow me to build robust and scalable applications
+              I specialize in a variety of languages, frameworks, and tools that allow me to build robust and scalable applications. My toolkit is constantly evolving, ranging from traditional web technologies to emerging fields like computer vision and IoT, allowing me to bridge the gap between complex data and user-centric interfaces
             </p>
           </div>
           <div className="absolute inset-y-0 md:inset-y-9 w-full h-full start-[50%] md:scale-125">

@@ -25,7 +25,10 @@ const TimelineAnimated = ({ data, title, containerClassName }) => {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
-    <div className={containerClassName} ref={containerRef}>
+    <div
+      className={`relative ${containerClassName}`}
+      ref={containerRef}
+    >
       <h2 className="text-heading">{title}</h2>
       <div ref={ref} className="relative pb-20">
         {data.map((item, index) => (

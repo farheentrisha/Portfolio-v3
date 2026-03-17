@@ -12,7 +12,7 @@ const Education = lazy(() => import("./sections/Education"));
 const Skills = lazy(() => import("./sections/Skills"));
 const Achievements = lazy(() => import("./sections/Achievements"));
 const Publications = lazy(() => import("./sections/Publications"));
-const Testimonial = lazy(() => import("./sections/Testimonial"));
+const Certificates = lazy(() => import("./sections/Certificates"));
 const Contact = lazy(() => import("./sections/Contact"));
 const Footer = lazy(() => import("./sections/Footer"));
 
@@ -49,7 +49,7 @@ const App = () => {
           <Publications />
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
-          <Testimonial />
+          <Certificates />
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <Contact />
