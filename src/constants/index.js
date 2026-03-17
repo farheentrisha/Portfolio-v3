@@ -275,6 +275,85 @@ export const experiences = [
     ],
   },
 ];
+
+export const education = [
+  {
+    title: "BSc in Computer Science and Engineering",
+    date: "Apr 2021 - Jul 2025",
+    type: "tags",
+    contents: ["Military Institute of Science and Technology (MIST), Dhaka - CGPA: 3.54"],
+  },
+  {
+    title: "Higher Secondary Certificate (HSC)",
+    date: "Jul 2018 - Jul 2020",
+    type: "tags",
+    contents: ["Holy Cross College, Tejgaon, Dhaka - GPA: 5.00"],
+  },
+  {
+    title: "Secondary School Certificate (SSC)",
+    
+    date: "Jan 2013 - Mar 2018",
+    type: "tags",
+    contents: ["Saraju Bala Government Girls' High School, Kishoreganj - GPA: 5.00"],
+  },
+];
+
+export const publications = [
+  {
+    title:
+      "IoT Integrated Smart Aquarium Management System with Real-Time Water Quality Monitoring",
+    authors:
+      "Farheen Mahjarin Trisha, Maria Sultana, Ahmad Abdullah, Mohammad Alam, M. Akhtaruzzaman",
+    venue: "IEEE QPAIN 2025 Conference, pp. 1-5",
+    doi: "10.1109/QPAIN66474.2025.11171621",
+  },
+];
+
+export const achievements = [
+  {
+    title: "First Runner-up in Project Showcasing at Inventious 4.1",
+    date: "March 2025",
+  },
+  {
+    title: "First Runner-up in BCS ICT Fest 2025 (Project Showcasing)",
+    date: "2025",
+  },
+  {
+    title: "First Runner-up in Bangladesh Biology Olympiad Regional",
+    date: "March 2020",
+  },
+  {
+    title: 'Awarded in Flash Event "ARTvsARTIST" by Obscure Artists of Bangladesh',
+    date: "June 2020",
+  },
+];
+
+export const skills = [
+  {
+    category: "Languages",
+    items: ["Bangla", "English"],
+  },
+  {
+    category: "Programming",
+    items: ["C", "C++", "Python", "Java", "JavaScript", "PHP", "SQL"],
+  },
+  {
+    category: "AI/ML",
+    items: ["Machine Learning", "Deep Learning"],
+  },
+];
+
+export const certificates = [
+  {
+    category: "Web",
+    items: ["HTML", "CSS", "React", "Node.js", "Flask", "MongoDB"],
+  },
+  {
+    category: "Tools",
+    items: ["Blender"],
+  },
+];
+
 export const reviews = [
   {
     name: "Jack",

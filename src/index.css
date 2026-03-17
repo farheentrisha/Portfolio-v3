@@ -67,6 +67,9 @@ body {
 .section-spacing {
   @apply min-h-screen mt-20 md:mt-30;
 }
+.section-spacing-compact {
+  @apply mt-16 md:mt-20;
+}
 
 .text-heading {
   @apply font-bold text-3xl md:text-4xl;

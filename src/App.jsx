@@ -8,6 +8,11 @@ import { LiteModeProvider } from "./context/LiteModeContext";
 const About = lazy(() => import("./sections/About"));
 const Projects = lazy(() => import("./sections/Projects"));
 const Experiences = lazy(() => import("./sections/Experiences"));
+const Education = lazy(() => import("./sections/Education"));
+const Skills = lazy(() => import("./sections/Skills"));
+const Achievements = lazy(() => import("./sections/Achievements"));
+const Certificates = lazy(() => import("./sections/Certificates"));
+const Publications = lazy(() => import("./sections/Publications"));
 const Testimonial = lazy(() => import("./sections/Testimonial"));
 const Contact = lazy(() => import("./sections/Contact"));
 const Footer = lazy(() => import("./sections/Footer"));
@@ -32,6 +37,21 @@ const App = () => {
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <Experiences />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Education />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Skills />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Achievements />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Certificates />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Publications />
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <Testimonial />
