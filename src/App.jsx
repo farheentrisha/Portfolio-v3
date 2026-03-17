@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import Navbar from "./sections/navbar";
+import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import { SkeletonLoader } from "./components/SkeletonLoader";
 import { LiteModeProvider } from "./context/LiteModeContext";
