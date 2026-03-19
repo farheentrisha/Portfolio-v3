@@ -29,6 +29,7 @@ const Hero = () => {
 
   return (
     <section
+      id="home"
       ref={sectionRef}
       className="flex items-start justify-center min-h-screen overflow-hidden md:items-start md:justify-start c-space"
     >

@@ -1,0 +1,1 @@
+import{j as e}from"./three-CT1iOJR_.js";import{T as r}from"./Timeline-DPiXLA2z.js";import{e as i}from"./index-CUOHqAEV.js";import"./vendor-DbHEDQBy.js";import"./index-Ctlsrpd8.js";import"./motion-DDz0AnU7.js";const n=()=>e.jsx("section",{id:"work",className:"w-full",children:e.jsx(r,{data:i})});export{n as default};

@@ -40,11 +40,12 @@ const App = () => {
         <Suspense fallback={<SectionFallback />}>
           <Education />
         </Suspense>
-        
+        <Suspense fallback={<SectionFallback />}>
+          <Skills />
+        </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <Achievements />
         </Suspense>
-        
         <Suspense fallback={<SectionFallback />}>
           <Publications />
         </Suspense>

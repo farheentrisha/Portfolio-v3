@@ -60,6 +60,7 @@ const Contact = () => {
   };
   return (
     <section
+      id="contact"
       ref={sectionRef}
       className="relative flex items-center c-space section-spacing"
     >
