@@ -5,6 +5,18 @@ import { Particles } from "../components/Particles";
 import useInView from "../hooks/useInView";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 import { useLiteMode } from "../context/LiteModeContext";
+
+const CONTACT_EMAIL = "farheentrisha2.0@gmail.com";
+const EMAILJS_SERVICE_ID = "service_czoi5lv";
+const EMAILJS_TEMPLATE_ID = "template_i7622mq";
+const EMAILJS_PUBLIC_KEY = "fqsHkb3RTayRO8-KX";
+
+const getEmailJSErrorMessage = (error) => {
+  if (error?.text) return error.text;
+  if (error?.message) return error.message;
+  return "Unknown EmailJS error";
+};
+
 const Contact = () => {
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, { rootMargin: "200px" });
@@ -33,29 +45,42 @@ const Contact = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
     setIsLoading(true);
 
     try {
-      console.log("From submitted:", formData);
       await emailjs.send(
-        "service_79b0nyj",
-        "template_17us8im",
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         {
+          title: "Portfolio Contact Form",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
           from_name: formData.name,
           to_name: "Trisha",
           from_email: formData.email,
-          to_email: "farheentrisha2.0@gmail.com",
-          message: formData.message,
+          to_email: CONTACT_EMAIL,
         },
-        "pn-Bw_mS1_QQdofuV"
+        EMAILJS_PUBLIC_KEY
       );
       setIsLoading(false);
       setFormData({ name: "", email: "", message: "" });
-      showAlertMessage("success", "You message has been sent!");
+      showAlertMessage("success", "Your message has been sent!");
     } catch (error) {
+      const emailJSError = getEmailJSErrorMessage(error);
       setIsLoading(false);
-      console.log(error);
-      showAlertMessage("danger", "Somthing went wrong!");
+      console.error("EmailJS send failed:", {
+        status: error?.status,
+        text: error?.text,
+        message: error?.message,
+        error,
+      });
+      showAlertMessage(
+        "danger",
+        `Email failed: ${emailJSError}. Please send directly to ${CONTACT_EMAIL}.`
+      );
     }
   };
   return (
@@ -78,15 +103,16 @@ const Contact = () => {
       {showAlert && <Alert type={alertType} text={alertMessage} />}
       <div className="flex flex-col items-center justify-center max-w-md p-5 mx-auto border border-white/10 rounded-2xl bg-primary">
         <div className="flex flex-col items-start w-full gap-5 mb-10">
-          <h2 className="text-heading">Let's Talk</h2>
+          <h2 className="text-heading">Let&apos;s Talk</h2>
           <p className="font-normal text-neutral-400">
-            Whether you're loking to build a new website, improve your existing
-            platform, or bring a unique project to life, I'm here to help
+            Whether you&apos;re looking to build a new website, improve your
+            existing platform, or bring a unique project to life, I&apos;m here
+            to help.
           </p>
         </div>
         <form className="w-full" onSubmit={handleSubmit}>
           <div className="mb-5">
-            <label htmlFor="name" className="feild-label">
+            <label htmlFor="name" className="field-label">
               Full Name
             </label>
             <input
@@ -102,7 +128,7 @@ const Contact = () => {
             />
           </div>
           <div className="mb-5">
-            <label htmlFor="email" className="feild-label">
+            <label htmlFor="email" className="field-label">
               Email
             </label>
             <input
@@ -118,7 +144,7 @@ const Contact = () => {
             />
           </div>
           <div className="mb-5">
-            <label htmlFor="message" className="feild-label">
+            <label htmlFor="message" className="field-label">
               Message
             </label>
             <textarea
@@ -136,10 +162,20 @@ const Contact = () => {
           </div>
           <button
             type="submit"
-            className="w-full px-1 py-3 text-lg text-center rounded-md cursor-pointer bg-radial from-lavender to-royal hover-animation"
+            disabled={isLoading}
+            className="w-full px-1 py-3 text-lg text-center rounded-md cursor-pointer bg-radial from-lavender to-royal hover-animation disabled:cursor-not-allowed disabled:opacity-70"
           >
             {!isLoading ? "Send" : "Sending..."}
           </button>
+          <p className="mt-4 text-sm text-center text-neutral-400">
+            Or email me directly at{" "}
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="text-lavender hover:text-white"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </p>
         </form>
       </div>
     </section>
