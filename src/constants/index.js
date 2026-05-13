@@ -2,41 +2,61 @@ import { Github, Linkedin, MessageCircle } from "lucide-react"; // or your prefe
 export const myProjects = [
   {
     id: 1,
-    title: "IrishBangla – International Student Community Platform",
+    title: "IrishBangla – Ireland Tour & Travel Website",
     description:
-      "A web platform designed to support Bangladeshi and international students in Ireland with community resources and guidance.",
+      "A tour and travel website helping travelers from around the world plan trips and travel experiences in Ireland.",
     subDescription: [
-      "Developed a community-focused platform providing resources and guidance for international students.",
-      "Integrated informational sections and student support resource hubs.",
-      "Designed a structured content layout to improve information accessibility.",
+      "Built a travel-focused platform for global visitors interested in exploring Ireland.",
+      "Developed tour, destination, and travel information sections with a clear user journey.",
+      "Implemented a full-stack architecture using React, Node.js, and MongoDB.",
     ],
     href: "https://tiny-croquembouche-3d783f.netlify.app/",
     logo: "/assets/logos/irishbangla-logo.png", // Update with your logo path
     image: "/assets/projects/irishbangla.png",
     tags: [
       { id: 1, name: "React", path: "/assets/logos/react.svg" },
-      { id: 2, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
-      { id: 3, name: "Netlify", path: "/assets/logos/netlify.svg" },
+      {
+        id: 2,
+        name: "Node.js",
+        path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      },
+      {
+        id: 3,
+        name: "MongoDB",
+        path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
     ],
   },
   {
     id: 2,
     title: "FineAnswer – Immigration & Education Consultancy Platform",
     description:
-      "A consultancy website focused on higher education and immigration guidance, specifically tailored for students moving to Ireland.",
+      "A consultancy platform focused on education and immigration guidance, built with a modern full-stack web architecture.",
     subDescription: [
-      "Built a professional service platform for education and immigration consultancy.",
+      "Built a professional service platform using React, Node.js, MongoDB, and Firebase.",
       "Mapped out structured immigration journey guidance for prospective students.",
       "Implemented premium package sections and detailed service information modules.",
     ],
-    href: "https://fine-answer-wcij.vercel.app/",
+    href: "https://www.fineanswer.net/",
     logo: "/assets/logos/fineanswer-logo.png",
     image: "/assets/projects/fineanswer.png",
     tags: [
       { id: 1, name: "React", path: "/assets/logos/react.svg" },
-      { id: 2, name: "Vite", path: "/assets/logos/vitejs.svg" },
-      { id: 3, name: "TailwindCSS", path: "/assets/logos/tailwindcss.svg" },
-      { id: 4, name: "Motion", path: "/assets/logos/motion.svg" },
+      {
+        id: 2,
+        name: "Node.js",
+        path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      },
+      {
+        id: 3,
+        name: "MongoDB",
+        path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
+      {
+        id: 4,
+        name: "Firebase",
+        path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+      },
     ],
   },
   {
@@ -54,7 +74,11 @@ export const myProjects = [
     image: "/assets/projects/bongo.png",
     tags: [
       { id: 1, name: "React", path: "/assets/logos/react.svg" },
-      { id: 2, name: "Node.js", path: "/assets/logos/nodejs.svg" },
+      {
+        id: 2,
+        name: "Node.js",
+        path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      },
       { id: 3, name: "Flask", path: "/assets/logos/flask.svg" },
       { id: 4, name: "Python", path: "/assets/logos/python.svg" },
     ],
