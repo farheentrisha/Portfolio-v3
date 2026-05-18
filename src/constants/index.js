@@ -61,7 +61,7 @@ export const myProjects = [
   },
   {
     id: 3,
-    title: "Bongolouney.AI",
+    title: "BongoJourney.AI",
     description:
       "An AI-powered tour guide assistant designed to provide personalized travel recommendations.",
     subDescription: [

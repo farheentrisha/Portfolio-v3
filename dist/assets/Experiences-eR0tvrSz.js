@@ -1,0 +1,1 @@
+import{j as e}from"./three-CT1iOJR_.js";import{T as r}from"./Timeline-BNkA31fm.js";import{b as s}from"./index-UnJt9gQx.js";import"./vendor-DbHEDQBy.js";import"./motion-DDz0AnU7.js";const p=()=>{const{experiences:o}=s();return e.jsx("section",{id:"work",className:"w-full",children:e.jsx(r,{data:o})})};export{p as default};
