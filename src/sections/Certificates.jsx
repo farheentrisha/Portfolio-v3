@@ -5,16 +5,16 @@ import { certificates } from "../constants";
 const firstRow = certificates.slice(0, Math.ceil(certificates.length / 2));
 const secondRow = certificates.slice(Math.ceil(certificates.length / 2));
 
-const CertCard = ({ img, name, username, body }) => {
-  return (
+const CertCard = ({ img, name, username, body, href }) => {
+  const card = (
     <figure
       className={twMerge(
         "relative h-48 w-80 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-50/[.1] hover-animation group"
       )}
     >
       <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-        style={{ backgroundImage: `url(${img})` }}
+        className={`absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 ${img ? "" : "bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950"}`}
+        style={img ? { backgroundImage: `url(${img})` } : undefined}
       />
       <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-300" />
 
@@ -33,6 +33,12 @@ const CertCard = ({ img, name, username, body }) => {
       </div>
     </figure>
   );
+
+  return href ? (
+    <a href={href} target="_blank" rel="noreferrer" aria-label={`View ${name} certificate`}>
+      {card}
+    </a>
+  ) : card;
 };
 
 export default function Certificates() {

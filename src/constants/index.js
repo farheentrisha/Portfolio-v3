@@ -194,6 +194,13 @@ export const experiences = [
 
 export const education = [
   {
+    title: "Master of Science (MSc)",
+    date: "October 2026 - Present",
+    type: "tags",
+    location: "Dhaka",
+    contents: ["Bangladesh University of Engineering and Technology (BUET)"],
+  },
+  {
     title: "BSc in Computer Science and Engineering",
     date: "Apr 2021 - Jul 2025",
     type: "tags",
@@ -302,6 +309,13 @@ export const certificates = [
     username: "Kiron",
     body: "Core programming logic and data structures in Python.",
     img: "/assets/certs/kiron.png",
+  },
+  {
+    name: "Student Reviewer",
+    username: "NBHRC 2026",
+    body: "Certificate of recognition for service as a student reviewer.",
+    img: "/assets/certs/bear.png",
+    href: "/assets/certs/NBHRC26_Cert_Student_Reviewer_farheen_mahjarin_trisha.pdf",
   },
   
 ];
