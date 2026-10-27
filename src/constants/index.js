@@ -314,7 +314,7 @@ export const certificates = [
     name: "Student Reviewer",
     username: "NBHRC 2026",
     body: "Certificate of recognition for service as a student reviewer.",
-    img: "/assets/certs/bear.png",
+    img: "/assets/certs/student.png",
     href: "/assets/certs/NBHRC26_Cert_Student_Reviewer_farheen_mahjarin_trisha.pdf",
   },
   
